@@ -31,16 +31,27 @@ console.log(cards.length)
  */
 
  function createHtml(cardsArry) {
+   // Iterate through the cards array and create the DOM nodes.
    cardsArry.forEach(function(card) {
      var indyCard = document.createElement('li')
-     var cardAttr = document.createAttribute('card');
+     var cardAttr = document.createAttribute('class');
      cardAttr.value = "card";
-     indyCard.setAttributeNode(cardAttr)
+     indyCard.setAttributeNode(cardAttr);
+
+     // Take each card that was passed to the callback function to create <i> element.
+     var indyCardPic = document.createElement('i');
+     var indyCardAttr = document.createAttribute('class');
+     indyCardAttr.value = `${card}`;
+     indyCardPic.setAttributeNode(indyCardAttr);
+
+     // Append the <i> element to <li> element.
+     indyCard.appendChild(indyCardPic)
      console.log(indyCard)
    })
  }
 
- createHtml(cards)
+createHtml(cards)
+
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
