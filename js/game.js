@@ -2,7 +2,7 @@
  * Create a list that holds all of your cards
  */
 
-var cards = [
+var gameCards = [
   "fa fa-diamond",
   "fa fa-paper-plane-o",
   "fa fa-anchor",
@@ -21,7 +21,7 @@ var cards = [
   "fa fa-bomb"
 ]
 
-console.log(cards.length)
+var deck = document.querySelector('.deck');
 
 /*
  * Display the cards on the page
@@ -29,6 +29,12 @@ console.log(cards.length)
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
+
+ function displayCards(cards) {
+   // Shuffle the deck of cards.
+   var shuffledCards = shuffle(cards);
+   createHtml(shuffledCards);
+ }
 
  function createHtml(cardsArry) {
    // Iterate through the cards array and create the DOM nodes.
@@ -46,11 +52,10 @@ console.log(cards.length)
 
      // Append the <i> element to <li> element.
      indyCard.appendChild(indyCardPic)
-     console.log(indyCard)
+     deck.appendChild(indyCard)
    })
  }
 
-createHtml(cards)
 
 
 // Shuffle function from http://stackoverflow.com/a/2450976
@@ -66,6 +71,14 @@ function shuffle(array) {
     }
 
     return array;
+}
+
+window.onload = function() {
+  displayCards(gameCards);
+
+  deck.addEventListener('click', function(e) {
+    console.log(e.target)
+  })
 }
 
 
