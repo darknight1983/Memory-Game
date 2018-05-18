@@ -2,7 +2,7 @@
  * Create a list that holds all of your cards
  */
 
-var gameCards = [
+var gameCardIcons = new Array (
   "fa fa-diamond",
   "fa fa-paper-plane-o",
   "fa fa-anchor",
@@ -19,9 +19,14 @@ var gameCards = [
   "fa fa-leaf",
   "fa fa-bicycle",
   "fa fa-bomb"
-]
+)
+
+
+
 
 var deck = document.querySelector('.deck');
+var cards = document.querySelectorAll('.card');
+
 
 var openCards = [];
 
@@ -34,29 +39,21 @@ var openCards = [];
 
  function displayCards(cards) {
    // Shuffle the deck of cards.
-   var shuffledCards = shuffle(cards);
-   createHtml(shuffledCards);
+   var shuffledIcons = shuffle(cards);
+   createHtml(shuffledIcons);
  }
 
- function createHtml(cardsArry) {
+ function createHtml(iconsArry) {
    // Iterate through the cards array and create the DOM nodes.
-   cardsArry.forEach(function(card) {
-     var indyCard = document.createElement('li')
-     var cardAttr = document.createAttribute('class');
-     cardAttr.value = "card";
-     indyCard.setAttributeNode(cardAttr);
-
-     // Take each card that was passed to the callback function to create <i> element.
-     var indyCardPic = document.createElement('i');
-     var indyCardAttr = document.createAttribute('class');
-     indyCardAttr.value = `${card}`;
-     indyCardPic.setAttributeNode(indyCardAttr);
-
-     // Append the <i> element to <li> element.
-     indyCard.appendChild(indyCardPic)
-     deck.appendChild(indyCard)
-   })
+   for (let i = 0; i < cards.length; i++) {
+     var icon = document.createElement('i');
+     var iconAttr = document.createAttribute('class');
+     iconAttr.value = iconsArry[i];
+     icon.setAttributeNode(iconAttr);
+     cards[i].appendChild(icon);
+   }
  }
+
 
 
 
@@ -75,32 +72,50 @@ function shuffle(array) {
     return array;
 }
 
+function startGame() {
+  displayCards(gameCardIcons)
+}
+
+
+
 function displaySymbol(e) {
-  var selectedCard = e.target;
-
-  (selectedCard.getAttribute("class") === "card") ?
-  selectedCard.setAttribute('class', 'card show open') :
-  selectedCard.setAttribute('class', 'card');
+  var card = e.target;
+  // Display the symbol on the card.
+  card.classList.add('open', 'show');
+  addToList(card)
 }
 
-function addOpenCard(card) {
+function itsAMatch() {
+  alert('Its a match')
+}
+
+function notAMatch() {
+  alert('Its not a match')
+}
+
+function addToList(card) {
   openCards.push(card)
-  console.log(openCards)
-}
-
-
-window.onload = function() {
-  displayCards(gameCards);
-
-
-  var cards = document.getElementsByClassName('card');
-  cards = Array.from(cards);
-
-  for (let i = 0; i < cards.length; i++) {
-    cards[i].addEventListener('click', displaySymbol)
+  if (openCards.length >= 2 ) {
+    // check to see if there are mathces.
+    var icon1 = openCards[0].lastElementChild;
+    var icon2 = openCards[1].lastElementChild;
+    console.log(icon1.classList[1])
+    console.log(icon2.classList[1])
+    if (icon1.classList[1] === icon2.classList[1]) {
+      console.log("Its a match")
+    }
   }
-
 }
+
+for (let i = 0; i < cards.length; i++) {
+  cards[i].addEventListener('click', displaySymbol, true);
+}
+
+
+startGame();
+
+
+
 
 
 /*
