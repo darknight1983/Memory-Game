@@ -23,6 +23,8 @@ var gameCards = [
 
 var deck = document.querySelector('.deck');
 
+var openCards = [];
+
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -73,12 +75,31 @@ function shuffle(array) {
     return array;
 }
 
+function displaySymbol(e) {
+  var selectedCard = e.target;
+
+  (selectedCard.getAttribute("class") === "card") ?
+  selectedCard.setAttribute('class', 'card show open') :
+  selectedCard.setAttribute('class', 'card');
+}
+
+function addOpenCard(card) {
+  openCards.push(card)
+  console.log(openCards)
+}
+
+
 window.onload = function() {
   displayCards(gameCards);
 
-  deck.addEventListener('click', function(e) {
-    console.log(e.target)
-  })
+
+  var cards = document.getElementsByClassName('card');
+  cards = Array.from(cards);
+
+  for (let i = 0; i < cards.length; i++) {
+    cards[i].addEventListener('click', displaySymbol)
+  }
+
 }
 
 
