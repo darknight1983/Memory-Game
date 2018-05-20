@@ -107,3 +107,12 @@ h1 {
     float: right;
     cursor: pointer;
 }
+
+.winner-box {
+  background-color: rgba(35, 167, 173, 1.0);
+   border: 1px solid black;
+   border-radius: 30px;
+   display: none;
+   width: 100%;
+   padding: 40px;
+}

@@ -26,9 +26,20 @@ var gameCardIcons = new Array (
 
 var deck = document.querySelector('.deck');
 var cards = document.querySelectorAll('.card');
+var stars = document.querySelector('.stars');
+var star = document.querySelector('.fa-star');
+var moveCounter = document.querySelector('.moves');
+var winnerBox = document.querySelector('.winner-box');
+var timer = document.querySelector('.timer');
 
-
+var moves = 0;
 var openCards = [];
+var matches = 0;
+var interval;
+
+let timerValue = 0;
+let minutes = 0;
+let seconds = 0;
 
 /*
  * Display the cards on the page
@@ -55,8 +66,6 @@ var openCards = [];
  }
 
 
-
-
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
@@ -76,34 +85,77 @@ function startGame() {
   displayCards(gameCardIcons)
 }
 
+function startTimer() {
+  timer.textContent = minutes + " Minutes " + seconds + " Seconds";
+	interval = setInterval(function(){
+		seconds++;
+		timer.textContent = minutes + " Minutes " + seconds + " Seconds";
+		if(seconds == 60){
+			minutes++;
+			seconds = 0;
+			timer.textContent = minutes + " Minutes " + seconds + " Seconds";
+		}
+	},1000);
+}
 
 
 function displaySymbol(e) {
+  // Condition for starting the timer
+  if(openCards.length === 0 && timerValue === 0) {
+		startTimer();
+		timerValue = 1;
+	}
   var card = e.target;
   // Display the symbol on the card.
   card.classList.add('open', 'show');
   addToList(card)
 }
 
-function itsAMatch() {
-  alert('Its a match')
+function itsAMatch(card1, card2) {
+  card1.classList.add('match');
+  card2.classList.add('match');
+  matches += 1;
+  openCards = [];
+  victory();
 }
 
-function notAMatch() {
-  alert('Its not a match')
+function notAMatch(card1, card2) {
+  setTimeout(function() {
+    card1.setAttribute('class', 'card');
+    card2.setAttribute('class', 'card')
+    openCards = [];
+  }, 2000)
+
 }
 
 function addToList(card) {
+  incrementMoveCounter();
   openCards.push(card)
   if (openCards.length >= 2 ) {
     // check to see if there are mathces.
-    var icon1 = openCards[0].lastElementChild;
-    var icon2 = openCards[1].lastElementChild;
-    console.log(icon1.classList[1])
-    console.log(icon2.classList[1])
-    if (icon1.classList[1] === icon2.classList[1]) {
-      console.log("Its a match")
+    var card1 = openCards[0];
+    var card2 = openCards[1];
+
+    if (card1.lastElementChild.classList[1] === card2.lastElementChild.classList[1]) {
+      // Lock the cards in the match position
+      itsAMatch(card1, card2);
+    } else {
+      notAMatch(card1, card2)
     }
+  }
+}
+
+function incrementMoveCounter() {
+  moves += 1;
+  moveCounter.textContent = moves;
+  if (moves > 5) {
+    star.remove();
+  }
+}
+
+function victory() {
+  if (matches === 8) {
+    winnerBox.style.display = "block";
   }
 }
 
