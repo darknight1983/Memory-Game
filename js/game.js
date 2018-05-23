@@ -31,6 +31,7 @@ var star = document.querySelector('.fa-star');
 var moveCounter = document.querySelector('.moves');
 var winnerBox = document.querySelector('.winner-box');
 var timer = document.querySelector('.timer');
+var restartButton = document.querySelector('.restart');
 
 var moves = 0;
 var openCards = [];
@@ -62,6 +63,8 @@ let seconds = 0;
      iconAttr.value = iconsArry[i];
      icon.setAttributeNode(iconAttr);
      cards[i].appendChild(icon);
+     // Try attaching an event listener to each card here.
+     cards[i].addEventListener('click', displaySymbol, true);
    }
  }
 
@@ -159,9 +162,21 @@ function victory() {
   }
 }
 
-for (let i = 0; i < cards.length; i++) {
-  cards[i].addEventListener('click', displaySymbol, true);
+// You need to add the functionality to restart the game here.
+// A function to reset the game would work best because the
+// user will also have this option upon winning the game.
+
+
+function resetGame() {
+  console.log('You are attempting to restart the game');
 }
+
+// Add event listener on the reset button.
+restartButton.addEventListener('click', resetGame);
+
+// for (let i = 0; i < cards.length; i++) {
+//   cards[i].addEventListener('click', displaySymbol, true);
+// }
 
 
 startGame();
