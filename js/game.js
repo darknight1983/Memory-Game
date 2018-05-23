@@ -110,8 +110,13 @@ function displaySymbol(e) {
 	}
   var card = e.target;
   // Display the symbol on the card.
-  card.classList.add('open', 'show');
-  addToList(card)
+  if (openCards.length < 2) {
+    card.classList.add('open', 'show');
+    addToList(card)
+  } else {
+    return
+  }
+
 }
 
 function itsAMatch(card1, card2) {
