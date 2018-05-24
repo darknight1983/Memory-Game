@@ -32,6 +32,7 @@ var moveCounter = document.querySelector('.moves');
 var winnerBox = document.querySelector('.winner-box');
 var timer = document.querySelector('.timer');
 var restartButton = document.querySelector('.restart');
+var playAgainButton = document.querySelector('.play-again');
 
 var moves = 0;
 var openCards = [];
@@ -85,6 +86,11 @@ function shuffle(array) {
 }
 
 function startGame() {
+  // Clear the innerHTML before adding the shuffled Cards.
+  cards.forEach(function(card) {
+    card.classList.remove("open", "show", "match");
+    card.innerHTML = '';
+  })
   displayCards(gameCardIcons)
 }
 
@@ -114,7 +120,7 @@ function displaySymbol(e) {
     card.classList.add('open', 'show');
     addToList(card)
   } else {
-    return
+    return;
   }
 
 }
@@ -163,7 +169,9 @@ function incrementMoveCounter() {
 
 function victory() {
   if (matches === 8) {
+    // Changes the display from hidden to block so that it becomes visible.
     winnerBox.style.display = "block";
+    clearInterval(interval);
   }
 }
 
@@ -174,10 +182,20 @@ function victory() {
 
 function resetGame() {
   console.log('You are attempting to restart the game');
+  moves = 0;
+  openCards = [];
+  matches = 0;
+  timerValue = 0;
+  minutes = 0;
+  seconds = 0;
+  moveCounter.textContent = moves;
+  winnerBox.style.display = "none";
+  startGame()
 }
 
 // Add event listener on the reset button.
 restartButton.addEventListener('click', resetGame);
+playAgainButton.addEventListener('click', resetGame);
 
 // for (let i = 0; i < cards.length; i++) {
 //   cards[i].addEventListener('click', displaySymbol, true);
