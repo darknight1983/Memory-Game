@@ -90,7 +90,8 @@ function startGame() {
   cards.forEach(function(card) {
     card.classList.remove("open", "show", "match");
     card.innerHTML = '';
-  })
+  });
+  clearInterval(interval)
   displayCards(gameCardIcons)
 }
 
@@ -117,8 +118,10 @@ function displaySymbol(e) {
   var card = e.target;
   // Display the symbol on the card.
   if (openCards.length < 2) {
-    card.classList.add('open', 'show');
-    addToList(card)
+    if (!card.classList.contains('open') && !card.classList.contains('show')) {
+         card.classList.add('open', 'show');
+         addToList(card)
+    }
   } else {
     return;
   }
@@ -188,6 +191,7 @@ function resetGame() {
   timerValue = 0;
   minutes = 0;
   seconds = 0;
+  timer.textContent = minutes + " Minutes " + seconds + " Seconds";
   moveCounter.textContent = moves;
   winnerBox.style.display = "none";
   startGame()
