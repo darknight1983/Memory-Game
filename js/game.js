@@ -33,6 +33,7 @@ var winnerBox = document.querySelector('.winner-box');
 var timer = document.querySelector('.timer');
 var restartButton = document.querySelector('.restart');
 var playAgainButton = document.querySelector('.play-again');
+var finalTime = document.querySelector('.time-spent');
 
 var moves = 0;
 var openCards = [];
@@ -119,9 +120,12 @@ function displaySymbol(e) {
   // Display the symbol on the card.
   if (openCards.length < 2) {
     if (!card.classList.contains('open') && !card.classList.contains('show')) {
-         card.classList.add('open', 'show');
-         addToList(card)
+      card.classList.add('open', 'show');
+      addToList(card)
+    } else {
+      return;
     }
+
   } else {
     return;
   }
@@ -173,6 +177,7 @@ function incrementMoveCounter() {
 function victory() {
   if (matches === 8) {
     // Changes the display from hidden to block so that it becomes visible.
+    finalTime.textContent = minutes + " Minutes " + seconds + " Seconds";
     winnerBox.style.display = "block";
     clearInterval(interval);
   }
