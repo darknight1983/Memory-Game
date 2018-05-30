@@ -171,10 +171,10 @@ function addToList(card) {
 function incrementMoveCounter() {
   moves += 1;
   moveCounter.textContent = moves;
-  if (moves > 5) {
+  if (moves > 10) {
     star[0].remove();
   }
-   if (moves > 10) {
+   if (moves > 18) {
     star[1].remove();
   }
 }
