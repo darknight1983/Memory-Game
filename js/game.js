@@ -23,10 +23,8 @@ var gameCardIcons = new Array (
 
 
 
-
-var deck = document.querySelector('.deck');
+var stars = document.querySelector('.stars');
 var cards = document.querySelectorAll('.card');
-var stars = document.querySelector('.stars'); // This refers to the ul
 var star = document.querySelectorAll('.fa-star');
 var moveCounter = document.querySelector('.moves');
 var winnerBox = document.querySelector('#winner-box');
@@ -204,10 +202,10 @@ function resetGame() {
   timer.textContent = minutes + " Minutes " + seconds + " Seconds";
   stars.innerHTML = `<li><i class="fa fa-star"></i></li>
   <li><i class="fa fa-star"></i></li>
-  <li><i class="fa fa-star"></i></li>`
+  <li><i class="fa fa-star"></i></li>`;
   moveCounter.textContent = moves;
   winnerBox.style.display = "none";
-  startGame()
+  startGame();
 }
 
 // Add event listener on the reset button.
