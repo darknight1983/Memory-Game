@@ -108,16 +108,20 @@ h1 {
     cursor: pointer;
 }
 
-.winner-box {
-  background-color: rgba(35, 167, 173, 1.0);
-   border: 1px solid black;
-   border-radius: 30px;
-   display: none;
-   width: 100%;
-   padding: 40px;
+.modal {
+  background-color: #3f3d99;
+  display: none;
+  width: 50%;
+  height: 200px;
+  position: fixed;
+  z-index: 1;
 }
 
-.winner-box button {
+.winnerBox-content {
+  text-align: center;
+}
+
+.winnerBox-content button {
   font-size: 18px;
   padding: 10px;
   margin: 0px auto;
