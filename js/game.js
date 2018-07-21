@@ -32,6 +32,7 @@ var timer = document.querySelector('.timer');
 var restartButton = document.querySelector('.restart');
 var playAgainButton = document.querySelector('.play-again');
 var finalTime = document.querySelector('.time-spent');
+var starCount = document.querySelector('#star-count');
 
 
 
@@ -170,10 +171,10 @@ function incrementMoveCounter() {
   moves += 1;
   moveCounter.textContent = moves;
   if (moves > 10) {
-    star[0].remove();
+    star[0].style.display = "none";
   }
    if (moves > 18) {
-    star[1].remove();
+    star[1].style.display = "none";
   }
 }
 
@@ -181,6 +182,13 @@ function victory() {
   if (matches === 8) {
     // Changes the display from hidden to block so that it becomes visible.
     finalTime.textContent = minutes + " Minutes " + seconds + " Seconds";
+    if (moves > 18) {
+      starCount.textContent = "Stars: 1";
+    } else if (moves > 10) {
+      starCount.textContent = "Stars: 2";
+    } else {
+      starCount.textContent = "Stars: 3"; 
+    }
     winnerBox.style.display = "block";
     clearInterval(interval);
   }
